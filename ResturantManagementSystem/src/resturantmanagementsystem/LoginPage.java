@@ -5,7 +5,10 @@
 package resturantmanagementsystem;
 
 import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +19,7 @@ public class LoginPage extends javax.swing.JFrame {
     /**
      * Creates new form LoginPage
      */
+     JDBC db=new JDBC();
     public LoginPage() {
         initComponents();
         setImage();
@@ -132,6 +136,11 @@ public void setImage() {
         jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(153, 0, 204));
         jButton1.setText("SIGNUP");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -142,6 +151,11 @@ public void setImage() {
         jButton2.setFont(new java.awt.Font("Tw Cen MT", 1, 20)); // NOI18N
         jButton2.setForeground(new java.awt.Color(153, 0, 204));
         jButton2.setText("LOGIN");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -167,6 +181,29 @@ public void setImage() {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        String password = jPasswordField1.getText();
+        
+         try {
+             db.getdata("SELECT userName,password FROM newuser WHERE userName='"+jTextField2.getText()+"'");
+             if(password.equals(db.getdata(password))){
+                JOptionPane.showMessageDialog(null, "Login Successfully");
+                new Home ().setVisible(true);
+             }
+             else{
+                 JOptionPane.showMessageDialog(null, "Enter correct password");
+             }
+         } catch (Exception ex) {
+             System.out.println(ex);
+         }
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        new NewUserAccount ().setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments

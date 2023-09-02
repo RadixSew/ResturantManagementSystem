@@ -4,6 +4,13 @@
  */
 package resturantmanagementsystem;
 
+import java.awt.Image;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author RADHIKA
@@ -86,11 +93,14 @@ public class AddProductDetails extends javax.swing.JFrame {
 
         jTextField2.setFont(new java.awt.Font("Tw Cen MT", 0, 16)); // NOI18N
 
-        jLabel5.setText("IMG");
-
         jButton1.setBackground(new java.awt.Color(153, 0, 204));
         jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jButton1.setText("Browse");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tw Cen MT", 1, 16)); // NOI18N
         jLabel6.setText("Active");
@@ -113,11 +123,14 @@ public class AddProductDetails extends javax.swing.JFrame {
                             .addComponent(jTextField1)
                             .addComponent(jLabel3)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(120, 120, 120)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))))
-                .addContainerGap(103, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(120, 120, 120)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(62, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(38, 38, 38)
@@ -132,8 +145,8 @@ public class AddProductDetails extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
                         .addGap(20, 20, 20))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -146,7 +159,7 @@ public class AddProductDetails extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(87, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                     .addContainerGap(242, Short.MAX_VALUE)
@@ -162,7 +175,12 @@ public class AddProductDetails extends javax.swing.JFrame {
         jButton2.setText("Save");
 
         jButton3.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
-        jButton3.setText("Cansel");
+        jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -190,6 +208,44 @@ public class AddProductDetails extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        JFileChooser browserImg=new JFileChooser();
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","png","jpg","jpeg");
+        browserImg.addChoosableFileFilter(fnef);
+        int showOpenDialogue = browserImg.showOpenDialog(null);
+        
+        if(showOpenDialogue == JFileChooser.APPROVE_OPTION)
+        {
+            File selectedImageFile = browserImg.getSelectedFile();
+            String selectedImagePath=selectedImageFile.getAbsolutePath();
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+            ImageIcon li= new ImageIcon(selectedImagePath);
+            Image image = li.getImage().getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(), Image.SCALE_SMOOTH);
+            jLabel5.setIcon(new ImageIcon(image));
+            
+        }
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser browserImg=new JFileChooser();
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES","png","jpg","jpeg");
+        browserImg.addChoosableFileFilter(fnef);
+        int showOpenDialogue = browserImg.showOpenDialog(null);
+        
+        if(showOpenDialogue == JFileChooser.APPROVE_OPTION)
+        {
+            File selectedImageFile = browserImg.getSelectedFile();
+            String selectedImagePath=selectedImageFile.getAbsolutePath();
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+            ImageIcon li= new ImageIcon(selectedImagePath);
+            Image image = li.getImage().getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(), Image.SCALE_SMOOTH);
+            jLabel5.setIcon(new ImageIcon(image));
+            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,6 +6,7 @@ package resturantmanagementsystem;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,7 +41,7 @@ public void setImage() {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nameTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -77,6 +78,11 @@ public void setImage() {
         jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(153, 0, 204));
         jButton1.setText("LOGIN");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jButton1);
         jButton1.setBounds(120, 390, 90, 40);
 
@@ -85,9 +91,9 @@ public void setImage() {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(60, 130, 50, 21);
 
-        jTextField1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(210, 130, 205, 27);
+        nameTxt.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jPanel1.add(nameTxt);
+        nameTxt.setBounds(210, 130, 205, 27);
 
         jLabel3.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabel3.setText("Username");
@@ -144,18 +150,35 @@ public void setImage() {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String name=jTextField1.getText();
+        String name=nameTxt.getText();
         String userName=jTextField2.getText();
         String idNo=jTextField3.getText();
         String password=jPasswordField1.getText();
         String reType=jPasswordField2.getText();
         
-        try {
-    db.putdata("INSERT INTO newuser VALUES('" + name + "','" + userName + "','" + idNo + "','" + password + "','" + reType + "')");
-} catch (Exception e) {
-    System.out.println(e);
-}
+        
+        
+        if (password.equals(reType)) {
+    try {
+        db.putdata("INSERT INTO newuser VALUES('" + name + "','" + userName + "','" + idNo + "','" + password + "','" + reType + "')");
+        JOptionPane.showMessageDialog(rootPane, "User added successfully.");
+        nameTxt.setText(" ");
+        jTextField2.setText(" ");
+        jTextField3.setText(" ");
+        jPasswordField1.setText(" ");
+        jPasswordField2.setText(" ");
+    } catch (Exception e) {
+        System.out.println("Error adding user: " + e);
+    }
+    } else {
+    JOptionPane.showMessageDialog(rootPane, "Passwords do not match.");
+    }       
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        new LoginPage ().setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -205,8 +228,8 @@ public void setImage() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nameTxt;
     // End of variables declaration//GEN-END:variables
 }
